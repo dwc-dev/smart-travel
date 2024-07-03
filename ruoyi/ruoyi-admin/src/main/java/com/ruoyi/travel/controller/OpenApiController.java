@@ -19,7 +19,7 @@ public class OpenApiController {
     private IScenicService scenicService;
 
     @GetMapping("/scenic")
-    @PostMapping("/scenic")
+    //@PostMapping("/scenic")
     public List<Scenic> listScenic() {
         List<Scenic> list = scenicService.selectScenicList(new Scenic());
         return list;
