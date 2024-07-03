@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.travel.mapper.ScenicMapper">
+    
+    <resultMap type="Scenic" id="ScenicResult">
+        <result property="scenicId"    column="scenic_id"    />
+        <result property="name"    column="name"    />
+        <result property="province"    column="province"    />
+        <result property="city"    column="city"    />
+        <result property="district"    column="district"    />
+        <result property="description"    column="description"    />
+        <result property="imageUrl"    column="image_url"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectScenicVo">
+        select scenic_id, name, province, city, district, description, image_url, create_time from travel_scenic
+    </sql>
+
+    <select id="selectScenicList" parameterType="Scenic" resultMap="ScenicResult">
+        <include refid="selectScenicVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="province != null  and province != ''"> and province = #{province}</if>
+            <if test="city != null  and city != ''"> and city = #{city}</if>
+            <if test="district != null  and district != ''"> and district = #{district}</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+            <if test="imageUrl != null  and imageUrl != ''"> and image_url = #{imageUrl}</if>
+        </where>
+    </select>
+    
+    <select id="selectScenicByScenicId" parameterType="Long" resultMap="ScenicResult">
+        <include refid="selectScenicVo"/>
+        where scenic_id = #{scenicId}
+    </select>
+
+    <insert id="insertScenic" parameterType="Scenic" useGeneratedKeys="true" keyProperty="scenicId">
+        insert into travel_scenic
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="province != null and province != ''">province,</if>
+            <if test="city != null and city != ''">city,</if>
+            <if test="district != null and district != ''">district,</if>
+            <if test="description != null">description,</if>
+            <if test="imageUrl != null">image_url,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="province != null and province != ''">#{province},</if>
+            <if test="city != null and city != ''">#{city},</if>
+            <if test="district != null and district != ''">#{district},</if>
+            <if test="description != null">#{description},</if>
+            <if test="imageUrl != null">#{imageUrl},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateScenic" parameterType="Scenic">
+        update travel_scenic
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="province != null and province != ''">province = #{province},</if>
+            <if test="city != null and city != ''">city = #{city},</if>
+            <if test="district != null and district != ''">district = #{district},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="imageUrl != null">image_url = #{imageUrl},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where scenic_id = #{scenicId}
+    </update>
+
+    <delete id="deleteScenicByScenicId" parameterType="Long">
+        delete from travel_scenic where scenic_id = #{scenicId}
+    </delete>
+
+    <delete id="deleteScenicByScenicIds" parameterType="String">
+        delete from travel_scenic where scenic_id in 
+        <foreach item="scenicId" collection="array" open="(" separator="," close=")">
+            #{scenicId}
+        </foreach>
+    </delete>
+</mapper>
