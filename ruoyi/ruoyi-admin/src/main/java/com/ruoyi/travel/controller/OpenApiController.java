@@ -3,6 +3,7 @@ package com.ruoyi.travel.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.ruoyi.travel.domain.Scenic;
@@ -18,6 +19,7 @@ public class OpenApiController {
     private IScenicService scenicService;
 
     @GetMapping("/scenic")
+    @PostMapping("/scenic")
     public List<Scenic> listScenic() {
         List<Scenic> list = scenicService.selectScenicList(new Scenic());
         return list;
