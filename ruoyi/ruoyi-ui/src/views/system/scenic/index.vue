@@ -33,7 +33,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="景区图片URL" prop="imageUrl">
+      <el-form-item label="URL" prop="imageUrl">
         <el-input
           v-model="queryParams.imageUrl"
           placeholder="请输入景区图片URL"
@@ -101,7 +101,11 @@
       <el-table-column label="市" align="center" prop="city" />
       <el-table-column label="区" align="center" prop="district" />
       <el-table-column label="景区简介" align="center" prop="description" />
-      <el-table-column label="景区图片URL" align="center" prop="imageUrl" />
+      <el-table-column label="景区图片" align="center" prop="imageUrl">
+        <template slot-scope="scope">
+          <img :src="scope.row.imageUrl" alt="景区图片" style="width: 100px; height: auto;" />
+        </template>
+      </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -121,7 +125,7 @@
         </template>
       </el-table-column>
     </el-table>
-    
+
     <pagination
       v-show="total>0"
       :total="total"
