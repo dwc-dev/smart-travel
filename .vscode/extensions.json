@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "vivaxy.vscode-conventional-commits",
+    "editorconfig.editorconfig",
+    "vscjava.vscode-java-pack",
+    "oven.bun-vscode",
+    "vue.volar",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "syler.sass-indented",
+    "bradlc.vscode-tailwindcss"
+  ]
+}
