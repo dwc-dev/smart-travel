@@ -33,6 +33,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
+      <!--
       <el-form-item label="URL" prop="imageUrl">
         <el-input
           v-model="queryParams.imageUrl"
@@ -41,6 +42,7 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
+      -->
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -56,7 +58,8 @@
           size="mini"
           @click="handleAdd"
           v-hasPermi="['system:scenic:add']"
-        >新增</el-button>
+        >新增
+        </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -67,7 +70,8 @@
           :disabled="single"
           @click="handleUpdate"
           v-hasPermi="['system:scenic:edit']"
-        >修改</el-button>
+        >修改
+        </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -78,7 +82,8 @@
           :disabled="multiple"
           @click="handleDelete"
           v-hasPermi="['system:scenic:remove']"
-        >删除</el-button>
+        >删除
+        </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -88,22 +93,23 @@
           size="mini"
           @click="handleExport"
           v-hasPermi="['system:scenic:export']"
-        >导出</el-button>
+        >导出
+        </el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
     <el-table v-loading="loading" :data="scenicList" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="景区ID" align="center" prop="scenicId" />
-      <el-table-column label="景区名称" align="center" prop="name" />
-      <el-table-column label="省" align="center" prop="province" />
-      <el-table-column label="市" align="center" prop="city" />
-      <el-table-column label="区" align="center" prop="district" />
-      <el-table-column label="景区简介" align="center" prop="description" />
+      <el-table-column type="selection" width="55" align="center"/>
+      <el-table-column label="景区ID" align="center" prop="scenicId"/>
+      <el-table-column label="景区名称" align="center" prop="name"/>
+      <el-table-column label="省" align="center" prop="province"/>
+      <el-table-column label="市" align="center" prop="city"/>
+      <el-table-column label="区" align="center" prop="district"/>
+      <el-table-column label="景区简介" align="center" prop="description"/>
       <el-table-column label="景区图片" align="center" prop="imageUrl">
         <template slot-scope="scope">
-          <img :src="scope.row.imageUrl" alt="景区图片" style="width: 100px; height: auto;" />
+          <img :src="scope.row.imageUrl" alt="景区图片" style="width: 100px; height: auto;"/>
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
@@ -114,14 +120,16 @@
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
             v-hasPermi="['system:scenic:edit']"
-          >修改</el-button>
+          >修改
+          </el-button>
           <el-button
             size="mini"
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
             v-hasPermi="['system:scenic:remove']"
-          >删除</el-button>
+          >删除
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -138,22 +146,22 @@
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="景区名称" prop="name">
-          <el-input v-model="form.name" placeholder="请输入景区名称" />
+          <el-input v-model="form.name" placeholder="请输入景区名称"/>
         </el-form-item>
         <el-form-item label="省" prop="province">
-          <el-input v-model="form.province" placeholder="请输入省" />
+          <el-input v-model="form.province" placeholder="请输入省"/>
         </el-form-item>
         <el-form-item label="市" prop="city">
-          <el-input v-model="form.city" placeholder="请输入市" />
+          <el-input v-model="form.city" placeholder="请输入市"/>
         </el-form-item>
         <el-form-item label="区" prop="district">
-          <el-input v-model="form.district" placeholder="请输入区" />
+          <el-input v-model="form.district" placeholder="请输入区"/>
         </el-form-item>
         <el-form-item label="景区简介" prop="description">
-          <el-input v-model="form.description" type="textarea" placeholder="请输入内容" />
+          <el-input v-model="form.description" type="textarea" placeholder="请输入内容"/>
         </el-form-item>
         <el-form-item label="景区图片URL" prop="imageUrl">
-          <el-input v-model="form.imageUrl" placeholder="请输入景区图片URL" />
+          <el-input v-model="form.imageUrl" placeholder="请输入景区图片URL"/>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -165,7 +173,7 @@
 </template>
 
 <script>
-import { listScenic, getScenic, delScenic, addScenic, updateScenic } from "@/api/system/scenic";
+import {listScenic, getScenic, delScenic, addScenic, updateScenic} from "@/api/system/scenic";
 
 export default {
   name: "Scenic",
@@ -205,16 +213,16 @@ export default {
       // 表单校验
       rules: {
         name: [
-          { required: true, message: "景区名称不能为空", trigger: "blur" }
+          {required: true, message: "景区名称不能为空", trigger: "blur"}
         ],
         province: [
-          { required: true, message: "省不能为空", trigger: "blur" }
+          {required: true, message: "省不能为空", trigger: "blur"}
         ],
         city: [
-          { required: true, message: "市不能为空", trigger: "blur" }
+          {required: true, message: "市不能为空", trigger: "blur"}
         ],
         district: [
-          { required: true, message: "区不能为空", trigger: "blur" }
+          {required: true, message: "区不能为空", trigger: "blur"}
         ],
       }
     };
@@ -264,7 +272,7 @@ export default {
     // 多选框选中数据
     handleSelectionChange(selection) {
       this.ids = selection.map(item => item.scenicId)
-      this.single = selection.length!==1
+      this.single = selection.length !== 1
       this.multiple = !selection.length
     },
     /** 新增按钮操作 */
@@ -306,12 +314,13 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const scenicIds = row.scenicId || this.ids;
-      this.$modal.confirm('是否确认删除景区管理编号为"' + scenicIds + '"的数据项？').then(function() {
+      this.$modal.confirm('是否确认删除景区管理编号为"' + scenicIds + '"的数据项？').then(function () {
         return delScenic(scenicIds);
       }).then(() => {
         this.getList();
         this.$modal.msgSuccess("删除成功");
-      }).catch(() => {});
+      }).catch(() => {
+      });
     },
     /** 导出按钮操作 */
     handleExport() {
