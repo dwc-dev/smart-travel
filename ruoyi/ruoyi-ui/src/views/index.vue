@@ -4,7 +4,7 @@
       <h1>智慧文旅平台</h1>
       <h2>带你探索全新的文化和旅游体验</h2>
     </div>
-    <el-carousel trigger="hover" height="500px">
+    <el-carousel trigger="hover" height="700px">
       <el-carousel-item v-for="(img, index) in images" :key="index">
         <img :src="require(`@/assets/travel/${img}`)" class="carousel-img"/>
       </el-carousel-item>
@@ -17,7 +17,7 @@ export default {
   name: 'TravelHome',
   data() {
     return {
-      images: ['img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg']
+      images: ['img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg', 'img5.jpg']
     };
   }
 };
