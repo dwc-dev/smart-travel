@@ -1,28 +1,37 @@
 <template>
   <div class="app">
     <div class="container" ref="fContainerRef">
-      <FsBookVirtualWaterfall2 :request="getData" :gap="15" :page-size="20" :column="column" :enter-size="column * 2">
+      <FsBookVirtualWaterfall
+        :request="getData"
+        :gap="15"
+        :page-size="20"
+        :column="column"
+        :enter-size="column * 2"
+      >
         <template #item="{ item, imageHeight }">
-          <fs-book-card
+          <FsBookCard
             :detail="{
               imageHeight,
               title: item.title,
-              author: item.author,
+              address: item.address,
+              imageUrl: item.imageUrl,
               bgColor: item.bgColor,
             }"
           />
         </template>
-      </FsBookVirtualWaterfall2>
+      </FsBookVirtualWaterfall>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from "vue";
-import FsBookCard from "./components/FsBookCard.vue";
-import FsBookVirtualWaterfall2 from "./components/FsBookVirtualWaterfall2.vue";
-import { ICardItem } from "./components/type";
-import list from "./config/index";
+import { ref, onMounted, onUnmounted } from 'vue';
+
+import FsBookCard from './components/FsBookCard.vue';
+import FsBookVirtualWaterfall from './components/FsBookVirtualWaterfall.vue';
+
+import type { ICardItem } from './components/type';
+
 const fContainerRef = ref<HTMLDivElement | null>(null);
 const column = ref(6);
 const fContainerObserver = new ResizeObserver((entries) => {
@@ -30,11 +39,11 @@ const fContainerObserver = new ResizeObserver((entries) => {
 });
 
 const changeColumn = (width: number) => {
-  if (width > 960) {
+  if (width >= 960) {
     column.value = 5;
-  } else if (width >= 690 && width < 960) {
+  } else if (width >= 690) {
     column.value = 4;
-  } else if (width >= 500 && width < 690) {
+  } else if (width >= 500) {
     column.value = 3;
   } else {
     column.value = 2;
@@ -42,29 +51,80 @@ const changeColumn = (width: number) => {
 };
 
 onMounted(() => {
-  fContainerRef.value && fContainerObserver.observe(fContainerRef.value);
+  if (fContainerRef.value) {
+    fContainerObserver.observe(fContainerRef.value);
+  }
 });
 
 onUnmounted(() => {
-  fContainerRef.value && fContainerObserver.unobserve(fContainerRef.value);
+  if (fContainerRef.value) {
+    fContainerObserver.unobserve(fContainerRef.value);
+  }
 });
 
-const getData = (page: number, pageSize: number) => {
-  return new Promise<ICardItem[]>((resolve) => {
-    setTimeout(() => {
-      resolve(list.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize));
-    }, 1000);
-  });
+const getData = async (
+  page: number,
+  pageSize: number,
+): Promise<ICardItem[]> => {
+  try {
+    const response = await fetch('http://localhost:8080/travel-openapi/scenic');
+
+    if (!response.ok) {
+      throw new Error(JSON.stringify(await response.json()));
+    }
+
+    const data: ICardItem[] = [];
+
+    for (const item of await response.json()) {
+      data.push(
+        await new Promise((resolve) => {
+          const img = new Image();
+          img.src = item.imageUrl;
+          img.onload = function () {
+            let address: string;
+            if (item.province === item.city) {
+              address = `${item.province}-${item.district}`;
+            } else {
+              address = `${item.province}-${item.city}-${item.district}`;
+            }
+
+            resolve({
+              id: item.scenicId,
+              title: item.name,
+              address,
+              imageUrl: item.imageUrl,
+              bgColor: 'red',
+              width: img.width,
+              height: img.height,
+            });
+          };
+        }),
+      );
+    }
+
+    return data;
+  } catch (error) {
+    alert(error);
+    throw error;
+  }
 };
 </script>
 
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+</style>
+
 <style scoped lang="scss">
 .app {
+  width: 100%;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100vw;
-  height: 100vh;
+
   .container {
     width: 1400px;
     height: 600px;
