@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ruoyi.travel.test.mapper.TestScenicMapper">
+
+    <resultMap id="TestTicketResultMap" type="com.ruoyi.travel.test.domain.TestTicket">
+        <id property="ticketId" column="ticket_id"/>
+        <result property="scenicId" column="scenic_id"/>
+        <result property="quantity" column="quantity"/>
+        <result property="type" column="type"/>
+        <result property="price" column="price"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <resultMap id="TestScenicResultMap" type="com.ruoyi.travel.test.domain.TestScenic">
+        <id property="scenicId" column="scenic_id"/>
+        <result property="name" column="name"/>
+<!--        <result property="province" column="province"/>-->
+<!--        <result property="city" column="city"/>-->
+<!--        <result property="district" column="district"/>-->
+<!--        <result property="description" column="description"/>-->
+<!--        <result property="imageUrl" column="image_url"/>-->
+<!--        <result property="createTime" column="create_time"/>-->
+        <collection property="tickets" ofType="com.ruoyi.travel.test.domain.TestTicket" column="scenic_id"
+                    select="selectTicketsByScenicId"/>
+    </resultMap>
+
+    <select id="selectAllScenicWithTickets" resultMap="TestScenicResultMap">
+        SELECT scenic_id, name
+        FROM travel_scenic
+    </select>
+
+    <select id="selectTicketsByScenicId" resultMap="TestTicketResultMap">
+        SELECT *
+        FROM travel_ticket
+        WHERE scenic_id = #{scenicId}
+    </select>
+
+</mapper>
