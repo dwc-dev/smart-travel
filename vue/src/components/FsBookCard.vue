@@ -1,7 +1,11 @@
 <template>
   <div class="fs-book-card-container">
     <div class="fs-book-card-image">
-      <img :src="props.detail.imageUrl" alt="props.detail.title" />
+      <img
+        v-if="props.detail.imageUrl"
+        :src="props.detail.imageUrl"
+        :alt="props.detail.title"
+      />
     </div>
     <div class="fs-book-card-footer">
       <div class="title">{{ props.detail.title }}</div>
@@ -33,7 +37,7 @@ interface ICardDetail {
   bgColor: string;
   title: string;
   address: string;
-  imageUrl: string;
+  imageUrl?: string;
   imageHeight: number;
   [key: string]: any;
 }
@@ -76,7 +80,7 @@ const props = defineProps<{
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0,0,0,0.25);
+      background-color: rgba(0, 0, 0, 0.25);
       -webkit-transform: translateZ(0);
     }
   }
