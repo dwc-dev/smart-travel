@@ -10,7 +10,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
  * 票务对象 travel_ticket
  * 
  * @author dwc
- * @date 2024-07-04
+ * @date 2024-07-05
  */
 public class TravelTicket extends BaseEntity
 {
@@ -27,6 +27,10 @@ public class TravelTicket extends BaseEntity
     /** 票的数量 */
     @Excel(name = "票的数量")
     private Long quantity;
+
+    /** 票的类型 */
+    @Excel(name = "票的类型")
+    private Long type;
 
     /** 票的价格 */
     @Excel(name = "票的价格")
@@ -59,6 +63,15 @@ public class TravelTicket extends BaseEntity
     {
         return quantity;
     }
+    public void setType(Long type) 
+    {
+        this.type = type;
+    }
+
+    public Long getType() 
+    {
+        return type;
+    }
     public void setPrice(BigDecimal price) 
     {
         this.price = price;
@@ -75,6 +88,7 @@ public class TravelTicket extends BaseEntity
             .append("ticketId", getTicketId())
             .append("scenicId", getScenicId())
             .append("quantity", getQuantity())
+            .append("type", getType())
             .append("price", getPrice())
             .append("createTime", getCreateTime())
             .toString();

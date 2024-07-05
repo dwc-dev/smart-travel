@@ -7,7 +7,7 @@ import com.ruoyi.travel.domain.TravelTicket;
  * 票务Mapper接口
  * 
  * @author dwc
- * @date 2024-07-04
+ * @date 2024-07-05
  */
 public interface TravelTicketMapper 
 {

@@ -24,6 +24,7 @@ CREATE TABLE travel_ticket (
     ticket_id INT AUTO_INCREMENT PRIMARY KEY COMMENT '票务ID',
     scenic_id INT NOT NULL COMMENT '景区ID',
     quantity INT NOT NULL COMMENT '票的数量',
+    type INT NOT NULL COMMENT '票的类型',
     price DECIMAL(10, 2) NOT NULL COMMENT '票的价格',
     create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
 ) COMMENT='票务表，存储票的数量和价格等信息';

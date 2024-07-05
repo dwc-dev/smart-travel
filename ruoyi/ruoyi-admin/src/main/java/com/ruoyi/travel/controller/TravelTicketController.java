@@ -25,7 +25,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
  * 票务Controller
  * 
  * @author dwc
- * @date 2024-07-04
+ * @date 2024-07-05
  */
 @RestController
 @RequestMapping("/system/ticket")

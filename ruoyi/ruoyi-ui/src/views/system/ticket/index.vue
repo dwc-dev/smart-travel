@@ -66,6 +66,11 @@
       <el-table-column label="票务ID" align="center" prop="ticketId" />
       <el-table-column label="景区ID" align="center" prop="scenicId" />
       <el-table-column label="票的数量" align="center" prop="quantity" />
+      <el-table-column label="票的类型" align="center" prop="type">
+        <template slot-scope="scope">
+          <dict-tag :options="dict.type.travel_ticket_type" :value="scope.row.type"/>
+        </template>
+      </el-table-column>
       <el-table-column label="票的价格" align="center" prop="price" />
       <el-table-column label="创建时间" align="center" prop="createTime" width="180">
         <template slot-scope="scope">
@@ -109,6 +114,16 @@
         <el-form-item label="票的数量" prop="quantity">
           <el-input v-model="form.quantity" placeholder="请输入票的数量" />
         </el-form-item>
+        <el-form-item label="票的类型" prop="type">
+          <el-select v-model="form.type" placeholder="请选择票的类型">
+            <el-option
+              v-for="dict in dict.type.travel_ticket_type"
+              :key="dict.value"
+              :label="dict.label"
+              :value="parseInt(dict.value)"
+            ></el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item label="票的价格" prop="price">
           <el-input v-model="form.price" placeholder="请输入票的价格" />
         </el-form-item>
@@ -126,6 +141,7 @@ import { listTicket, getTicket, delTicket, addTicket, updateTicket } from "@/api
 
 export default {
   name: "Ticket",
+  dicts: ['travel_ticket_type'],
   data() {
     return {
       // 遮罩层
@@ -162,6 +178,9 @@ export default {
         quantity: [
           { required: true, message: "票的数量不能为空", trigger: "blur" }
         ],
+        type: [
+          { required: true, message: "票的类型不能为空", trigger: "change" }
+        ],
         price: [
           { required: true, message: "票的价格不能为空", trigger: "blur" }
         ],
@@ -192,6 +211,7 @@ export default {
         ticketId: null,
         scenicId: null,
         quantity: null,
+        type: null,
         price: null,
         createTime: null
       };

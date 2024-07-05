@@ -8,12 +8,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="ticketId"    column="ticket_id"    />
         <result property="scenicId"    column="scenic_id"    />
         <result property="quantity"    column="quantity"    />
+        <result property="type"    column="type"    />
         <result property="price"    column="price"    />
         <result property="createTime"    column="create_time"    />
     </resultMap>
 
     <sql id="selectTravelTicketVo">
-        select ticket_id, scenic_id, quantity, price, create_time from travel_ticket
+        select ticket_id, scenic_id, quantity, type, price, create_time from travel_ticket
     </sql>
 
     <select id="selectTravelTicketList" parameterType="TravelTicket" resultMap="TravelTicketResult">
@@ -33,12 +34,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="scenicId != null">scenic_id,</if>
             <if test="quantity != null">quantity,</if>
+            <if test="type != null">type,</if>
             <if test="price != null">price,</if>
             <if test="createTime != null">create_time,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="scenicId != null">#{scenicId},</if>
             <if test="quantity != null">#{quantity},</if>
+            <if test="type != null">#{type},</if>
             <if test="price != null">#{price},</if>
             <if test="createTime != null">#{createTime},</if>
          </trim>
@@ -49,6 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <trim prefix="SET" suffixOverrides=",">
             <if test="scenicId != null">scenic_id = #{scenicId},</if>
             <if test="quantity != null">quantity = #{quantity},</if>
+            <if test="type != null">type = #{type},</if>
             <if test="price != null">price = #{price},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
         </trim>
