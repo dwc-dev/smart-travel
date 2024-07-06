@@ -43,11 +43,11 @@ public class Scenic extends BaseEntity {
 
     /** 景区图片宽度 */
     @Excel(name = "景区图片宽度")
-    private String imageWidth;
+    private Long imageWidth;
 
     /** 景区图片高度 */
     @Excel(name = "景区图片高度")
-    private String imageHeight;
+    private Long imageHeight;
 
     /** 景区图片主色 */
     @Excel(name = "景区图片主色")
@@ -109,19 +109,19 @@ public class Scenic extends BaseEntity {
         return imageUrl;
     }
 
-    public void setImageWidth(String imageWidth) {
+    public void setImageWidth(Long imageWidth) {
         this.imageWidth = imageWidth;
     }
 
-    public String getImageWidth() {
+    public Long getImageWidth() {
         return imageWidth;
     }
 
-    public void setImageHeight(String imageHeight) {
+    public void setImageHeight(Long imageHeight) {
         this.imageHeight = imageHeight;
     }
 
-    public String getImageHeight() {
+    public Long getImageHeight() {
         return imageHeight;
     }
 
