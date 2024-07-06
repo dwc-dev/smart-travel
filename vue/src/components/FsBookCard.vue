@@ -37,7 +37,7 @@ interface ICardDetail {
   bgColor: string;
   title: string;
   address: string;
-  imageUrl?: string;
+  imageUrl: string | null;
   imageHeight: number;
   [key: string]: any;
 }

@@ -17,10 +17,15 @@
               imageUrl: item.imageUrl,
               bgColor: item.bgColor,
             }"
+            @click="handleCardClick($event, item)"
           />
         </template>
       </FsBookVirtualWaterfall>
     </div>
+
+    <FsBookMask :show="maskShow" @close="maskShow = false">
+      <FsBookDetail :show="maskShow" :elRect="imageElRect" :data="detailData" />
+    </FsBookMask>
   </div>
 </template>
 
@@ -29,6 +34,8 @@ import { ref, onMounted, onUnmounted } from 'vue';
 
 import FsBookCard from '@/components/FsBookCard.vue';
 import FsBookVirtualWaterfall from '@/components/FsBookVirtualWaterfall.vue';
+import FsBookMask from '@/components/FsBookMask.vue';
+import FsBookDetail from '@/components/FsBookDetail.vue';
 
 import { fetchTravelScenicList } from '@/api/api';
 
@@ -90,10 +97,10 @@ const getData = async (
       }
 
       data.push({
+        ...item,
         id: item.scenicId,
         title: item.name,
         address,
-        imageUrl: item.imageUrl,
         bgColor: item.imageMainColor ?? 'pink',
         width: item.imageWidth ?? 100,
         height: item.imageHeight ?? 120,
@@ -105,6 +112,19 @@ const getData = async (
     alert(error);
     throw error;
   }
+};
+
+const maskShow = ref(false);
+const imageElRect = ref(new DOMRect());
+const detailData = ref<ICardItem | null>(null);
+
+const handleCardClick = async (event: MouseEvent, item: ICardItem) => {
+  const image = (event.target as Element)
+    .closest('.fs-book-card-container')!
+    .getElementsByClassName('fs-book-card-image')[0];
+  imageElRect.value = image.getBoundingClientRect() ?? new DOMRect();
+  detailData.value = item;
+  maskShow.value = true;
 };
 </script>
 

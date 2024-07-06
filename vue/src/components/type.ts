@@ -8,7 +8,7 @@ export interface IVirtualWaterFallProps {
   request: (page: number, pageSize: number) => Promise<ICardItem[]>;
 }
 
-export interface ICardItem {
+export interface ICardItem extends ITravelScenicItem {
   id: number | string;
   width: number;
   height: number;
