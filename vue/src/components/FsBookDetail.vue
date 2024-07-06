@@ -10,21 +10,42 @@ const props = defineProps<{
 
 <template>
   <Transition>
-    <div v-if="props.show" class="fs-book-detail p-5">
-      {{ data }}
+    <div v-if="props.show" class="fs-book-detail">
+      <div class="image">
+        <img v-if="data?.imageUrl" :src="data.imageUrl" :alt="data.name" />
+      </div>
+      <div class="content">
+        {{ data }}
+      </div>
     </div>
   </Transition>
 </template>
 
 <style scoped lang="scss">
 .fs-book-detail {
-  transform: translate(5.5555555555%, 12.5%);
-  width: 90%;
+  transform: translate(12.5%, 12.5%);
+  width: 80%;
   height: 80%;
+  display: flex;
   overflow: hidden;
   border: 1px solid #eee;
   border-radius: 20px;
   background-color: white;
+
+  .image {
+    width: 65%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f7f7f7;
+  }
+
+  .content {
+    flex: 1;
+    width: 0;
+    padding: 1rem;
+  }
 }
 
 .v-enter-active,
