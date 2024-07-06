@@ -6,7 +6,7 @@
           <el-option
             v-for="ticket in currentScenic.tickets"
             :key="ticket.ticketId"
-            :label="`${ticket.type === 0 ? '普通票' : 'VIP票'} - 价格: ￥${ticket.price}`"
+            :label="`${ticket.type === 0 ? '普通票' : 'VIP票'} - 价格: ￥${ticket.price} - 剩余: ${ticket.quantity}张`"
             :value="ticket.ticketId"
           ></el-option>
         </el-select>
