@@ -27,10 +27,12 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
 
-import FsBookCard from './components/FsBookCard.vue';
-import FsBookVirtualWaterfall from './components/FsBookVirtualWaterfall.vue';
+import FsBookCard from '@/components/FsBookCard.vue';
+import FsBookVirtualWaterfall from '@/components/FsBookVirtualWaterfall.vue';
 
-import type { ICardItem } from './components/type';
+import { fetchTravelScenicList } from '@/api/api';
+
+import type { ICardItem } from '@/components/type';
 
 const fContainerRef = ref<HTMLDivElement | null>(null);
 const column = ref(6);
@@ -66,56 +68,36 @@ const getData = async (
   page: number,
   pageSize: number,
 ): Promise<ICardItem[]> => {
-  if (page > 1) {
-    return [];
-  }
-
   try {
-    const response = await fetch('http://localhost:8080/travel-openapi/scenic');
-
-    if (!response.ok) {
-      throw new Error(JSON.stringify(await response.json()));
-    }
+    const list = await fetchTravelScenicList();
 
     const data: ICardItem[] = [];
+    for (const item of list.slice(
+      (page - 1) * pageSize,
+      (page - 1) * pageSize + pageSize,
+    )) {
+      let address: string | null = null;
+      if (item.province === item.city) {
+        if (item.district) {
+          address = `${item.province}-${item.district}`;
+        } else {
+          address = `${item.province}`;
+        }
+      } else if (item.district) {
+        address = `${item.province}-${item.city}-${item.district}`;
+      } else {
+        address = `${item.province}-${item.city}`;
+      }
 
-    for (const item of await response.json()) {
-      data.push(
-        await new Promise((resolve) => {
-          let address: string;
-          if (item.province === item.city) {
-            address = `${item.province}-${item.district}`;
-          } else {
-            address = `${item.province}-${item.city}-${item.district}`;
-          }
-
-          if (item.imageUrl) {
-            const img = new Image();
-            img.src = item.imageUrl;
-            img.onload = function () {
-              resolve({
-                id: item.scenicId,
-                title: item.name,
-                address,
-                imageUrl: item.imageUrl,
-                bgColor: 'red',
-                width: img.width,
-                height: img.height,
-              });
-            };
-          } else {
-            resolve({
-              id: item.scenicId,
-              title: item.name,
-              address,
-              imageUrl: '',
-              bgColor: 'red',
-              width: 100,
-              height: 120,
-            });
-          }
-        }),
-      );
+      data.push({
+        id: item.scenicId,
+        title: item.name,
+        address,
+        imageUrl: item.imageUrl,
+        bgColor: item.imageMainColor ?? 'pink',
+        width: item.imageWidth ?? 100,
+        height: item.imageHeight ?? 120,
+      });
     }
 
     return data;
