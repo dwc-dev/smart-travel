@@ -1,2 +1,3 @@
 cd .\ruoyi\ruoyi-ui\
-npm install --registry=https://registry.npmmirror.com
+call npm install --registry=https://registry.npmmirror.com
+call npm run dev
