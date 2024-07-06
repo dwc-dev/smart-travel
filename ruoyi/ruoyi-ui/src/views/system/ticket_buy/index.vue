@@ -51,7 +51,12 @@
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center">
-        <el-button type="primary" size="mini" icon="el-icon-shopping-cart-2">购票</el-button>
+        <template slot-scope="scope">
+          <el-button type="primary" size="mini" icon="el-icon-shopping-cart-2"
+                     @click="openDialog(ticketInformation.find(scenic => scenic.scenicId === scope.row.scenicId))">
+            购票
+          </el-button>
+        </template>
       </el-table-column>
     </el-table>
 
@@ -63,23 +68,23 @@
       @pagination="getList"
     />
 
-    <!-- 添加或修改购票对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
-      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="submitForm">确 定</el-button>
-        <el-button @click="cancel">取 消</el-button>
-      </div>
-    </el-dialog>
+
+    <TicketDialog
+      :visible.sync="dialogVisible"
+      :scenic="selectedScenic"
+      @close="handleClose"
+    ></TicketDialog>
+
   </div>
 </template>
 
 <script>
-import {listTicket_buy, getTicket_buy, delTicket_buy, addTicket_buy, updateTicket_buy} from "@/api/system/ticket_buy";
+import {listTicket_buy, getTicketInformation} from "@/api/system/ticket_buy";
+import TicketDialog from "@/views/system/ticket_buy/TicketDialog.vue";
 
 export default {
   name: "Ticket_buy",
+  components: {TicketDialog},
   data() {
     return {
       // 遮罩层
@@ -112,19 +117,29 @@ export default {
       // 表单参数
       form: {},
       // 表单校验
-      rules: {}
+      rules: {},
+
+      dialogVisible: false,
+      selectedScenic: {},
+      ticketInformation: [],
     };
   },
   created() {
     this.getList();
   },
   methods: {
-    /** 查询购票列表 */
+    /** 获取门票信息 */
     getList() {
-      this.loading = true;
-      listTicket_buy(this.queryParams).then(response => {
-        this.ticket_buyList = response.rows;
-        this.total = response.total;
+      listTicket_buy(this.queryParams).then(ticketBuyResponse => {
+        this.ticket_buyList = ticketBuyResponse.rows;
+        this.total = ticketBuyResponse.total;
+        return getTicketInformation(); // 返回第二个 Promise
+      }).then(ticketInformationResponse => {
+        this.ticketInformation = ticketInformationResponse;
+        console.log(ticketInformationResponse);
+        this.loading = false;
+      }).catch(error => {
+        console.error("An error occurred:", error);
         this.loading = false;
       });
     },
@@ -157,6 +172,14 @@ export default {
       this.resetForm("queryForm");
       this.handleQuery();
     },
+    openDialog(scenic) {
+      this.selectedScenic = scenic;
+      this.dialogVisible = true;
+    },
+    handleClose() {
+      this.dialogVisible = false;
+    }
   }
 };
 </script>
+
