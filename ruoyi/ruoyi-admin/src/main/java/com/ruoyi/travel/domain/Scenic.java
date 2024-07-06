@@ -7,12 +7,11 @@ import com.ruoyi.common.core.domain.BaseEntity;
 
 /**
  * 景区管理对象 travel_scenic
- * 
+ *
  * @author dwc
  * @date 2024-07-03
  */
-public class Scenic extends BaseEntity
-{
+public class Scenic extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /** 景区ID */
@@ -42,81 +41,112 @@ public class Scenic extends BaseEntity
     @Excel(name = "景区图片URL")
     private String imageUrl;
 
-    public void setScenicId(Long scenicId) 
-    {
+    /** 景区图片宽度 */
+    @Excel(name = "景区图片宽度")
+    private Long imageWidth;
+
+    /** 景区图片高度 */
+    @Excel(name = "景区图片高度")
+    private Long imageHeight;
+
+    /** 景区图片主色 */
+    @Excel(name = "景区图片主色")
+    private String imageMainColor;
+
+    public void setScenicId(Long scenicId) {
         this.scenicId = scenicId;
     }
 
-    public Long getScenicId() 
-    {
+    public Long getScenicId() {
         return scenicId;
     }
-    public void setName(String name) 
-    {
+
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getName() 
-    {
+    public String getName() {
         return name;
     }
-    public void setProvince(String province) 
-    {
+
+    public void setProvince(String province) {
         this.province = province;
     }
 
-    public String getProvince() 
-    {
+    public String getProvince() {
         return province;
     }
-    public void setCity(String city) 
-    {
+
+    public void setCity(String city) {
         this.city = city;
     }
 
-    public String getCity() 
-    {
+    public String getCity() {
         return city;
     }
-    public void setDistrict(String district) 
-    {
+
+    public void setDistrict(String district) {
         this.district = district;
     }
 
-    public String getDistrict() 
-    {
+    public String getDistrict() {
         return district;
     }
-    public void setDescription(String description) 
-    {
+
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    public String getDescription() 
-    {
+    public String getDescription() {
         return description;
     }
-    public void setImageUrl(String imageUrl) 
-    {
+
+    public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 
-    public String getImageUrl() 
-    {
+    public String getImageUrl() {
         return imageUrl;
+    }
+
+    public void setImageWidth(Long imageWidth) {
+        this.imageWidth = imageWidth;
+    }
+
+    public Long getImageWidth() {
+        return imageWidth;
+    }
+
+    public void setImageHeight(Long imageHeight) {
+        this.imageHeight = imageHeight;
+    }
+
+    public Long getImageHeight() {
+        return imageHeight;
+    }
+
+    public void setImageMainColor(String imageMainColor) {
+        this.imageMainColor = imageMainColor;
+    }
+
+    public String getImageMainColor() {
+        return imageMainColor;
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("scenicId", getScenicId())
-            .append("name", getName())
-            .append("province", getProvince())
-            .append("city", getCity())
-            .append("district", getDistrict())
-            .append("description", getDescription())
-            .append("imageUrl", getImageUrl())
-            .append("createTime", getCreateTime())
-            .toString();
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+                .append("scenicId", getScenicId())
+                .append("name", getName())
+                .append("province", getProvince())
+                .append("city", getCity())
+                .append("district", getDistrict())
+                .append("description", getDescription())
+                .append("imageUrl", getImageUrl())
+                .append("createTime", getCreateTime())
+                .append("imageWidth", getImageWidth())
+                .append("imageHeight", getImageHeight())
+                .append("imageMainColor", getImageMainColor())
+                .toString();
     }
 }
