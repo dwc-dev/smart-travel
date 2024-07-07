@@ -73,7 +73,8 @@ export default {
           top: '5%'
         },
         tooltip: {
-          trigger: 'axis'
+          trigger: 'axis',
+          axisPointer: {type: 'cross'}
         },
         legend: {
           data: ['普通票数量', 'VIP票数量', '普通票价格', 'VIP票价格'],
