@@ -4,10 +4,7 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/ruoyi/pom.xml" />
-        <option value="$PROJECT_DIR$/tesy/pom.xml" />
-        <option value="$PROJECT_DIR$/untitled/pom.xml" />
       </list>
     </option>
   </component>
