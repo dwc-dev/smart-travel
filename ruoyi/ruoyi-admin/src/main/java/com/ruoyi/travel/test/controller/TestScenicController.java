@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import com.ruoyi.common.utils.ServletUtils;
 
 import java.util.List;
 
@@ -15,12 +16,16 @@ import java.util.List;
 @RequestMapping("/test/ticket_buy")
 public class TestScenicController extends BaseController {
 
+    public static final String PAGE_NUM = "pageNum";
+    public static final String PAGE_SIZE = "pageSize";
+
     @Autowired
     private TestScenicService testScenicService;
 
     @GetMapping("/list")
     public List<TestScenic> getScenicList(TestScenic testScenic) {
-        startPage();
+        if (ServletUtils.getParameter(PAGE_SIZE) != null && ServletUtils.getParameter(PAGE_NUM) != null)
+            startPage();
         return testScenicService.getScenicList(testScenic);
     }
 
