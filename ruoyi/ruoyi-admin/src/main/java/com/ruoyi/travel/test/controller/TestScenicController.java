@@ -1,5 +1,6 @@
 package com.ruoyi.travel.test.controller;
 
+import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.travel.test.domain.TestScenic;
 import com.ruoyi.travel.test.service.TestScenicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +12,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/test/ticket_buy")
-public class TestScenicController {
+public class TestScenicController extends BaseController {
 
     @Autowired
     private TestScenicService testScenicService;
 
     @GetMapping("/list")
     public List<TestScenic> getScenicList() {
+        startPage();
         return testScenicService.getScenicList();
     }
 }

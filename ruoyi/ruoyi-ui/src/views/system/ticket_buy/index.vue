@@ -136,7 +136,7 @@ export default {
       listTicket_buy(this.queryParams).then(ticketBuyResponse => {
         this.ticket_buyList = ticketBuyResponse.rows;
         this.total = ticketBuyResponse.total;
-        return getTicketInformation(); // 返回第二个 Promise
+        return getTicketInformation(this.queryParams); // 返回第二个 Promise
       }).then(ticketInformationResponse => {
         this.ticketInformation = ticketInformationResponse;
         this.loading = false;

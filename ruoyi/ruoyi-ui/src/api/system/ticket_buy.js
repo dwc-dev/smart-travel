@@ -9,10 +9,11 @@ export function listTicket_buy(query) {
   })
 }
 
-export function getTicketInformation() {
+export function getTicketInformation(query) {
   return request({
     url: '/test/ticket_buy/list',
     method: 'get',
+    params: query
   })
 }
 
