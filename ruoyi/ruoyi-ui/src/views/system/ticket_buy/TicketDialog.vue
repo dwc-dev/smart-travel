@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import {buyTicket} from "@/api/system/ticket_buy";
 export default {
   props: {
     visible: {
@@ -41,7 +42,8 @@ export default {
       form: {
         selectedTicket: null,
         quantity: 1
-      }
+      },
+      orderData: {}
     };
   },
   watch: {
@@ -77,11 +79,12 @@ export default {
         this.$message.error('所选门票无效');
         return;
       }
-      console.log('提交订单:', {
+      this.orderData = {
         scenicId: this.currentScenic.scenicId,
         ticketId: selectedTicket.ticketId,
         quantity: this.form.quantity
-      });
+      };
+      buyTicket(this.orderData);
       this.$message.success('购票成功');
       this.$emit('close');
       this.resetForm();

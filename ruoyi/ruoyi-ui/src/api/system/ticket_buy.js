@@ -15,3 +15,11 @@ export function getTicketInformation() {
     method: 'get',
   })
 }
+
+export function buyTicket(data) {
+  return request({
+    url: '/test/ticket_buy/order',
+    method: 'post',
+    data: data
+  })
+}
