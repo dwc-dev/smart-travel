@@ -18,4 +18,11 @@ public class TestScenicServiceImpl implements TestScenicService {
     public List<TestScenic> getScenicList() {
         return testScenicMapper.selectAllScenicWithTickets();
     }
+
+    @Override
+    public TestScenic selectScenicWithTicketsById(Integer id) {
+        return testScenicMapper.selectScenicWithTicketsById(id);
+    }
+
+
 }

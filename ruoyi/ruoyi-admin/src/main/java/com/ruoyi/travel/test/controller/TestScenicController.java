@@ -6,6 +6,7 @@ import com.ruoyi.travel.test.service.TestScenicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -21,5 +22,10 @@ public class TestScenicController extends BaseController {
     public List<TestScenic> getScenicList() {
         startPage();
         return testScenicService.getScenicList();
+    }
+
+    @GetMapping("/ticket")
+    public TestScenic selectScenicWithTicketsById(@RequestParam("scenicId") Integer scenicId) {
+        return testScenicService.selectScenicWithTicketsById(scenicId);
     }
 }

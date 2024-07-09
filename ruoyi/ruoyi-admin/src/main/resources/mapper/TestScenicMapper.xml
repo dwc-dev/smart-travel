@@ -31,7 +31,13 @@
         SELECT *
         FROM travel_ticket
         WHERE scenic_id = #{scenicId}
-        ORDER BY scenic_id ASC
+        ORDER BY ticket_id ASC
+    </select>
+
+    <select id="selectScenicWithTicketsById" resultMap="TestScenicResultMap">
+        SELECT scenic_id, name
+        FROM travel_scenic
+        WHERE scenic_id = #{scenicId}
     </select>
 
 </mapper>

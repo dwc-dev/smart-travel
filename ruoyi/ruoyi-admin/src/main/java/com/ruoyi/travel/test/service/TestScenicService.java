@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface TestScenicService {
     List<TestScenic> getScenicList();
+    TestScenic selectScenicWithTicketsById(Integer id);
 }

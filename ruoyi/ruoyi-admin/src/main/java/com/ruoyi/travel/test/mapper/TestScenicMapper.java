@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface TestScenicMapper {
     List<TestScenic> selectAllScenicWithTickets();
+    TestScenic selectScenicWithTicketsById(Integer id);
 }
