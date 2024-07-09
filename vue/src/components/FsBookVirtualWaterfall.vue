@@ -1,5 +1,9 @@
 <template>
-  <div class="fs-virtual-waterfall-container" ref="containerRef" @scroll="handleScroll">
+  <div
+    class="fs-virtual-waterfall-container"
+    ref="containerRef"
+    @scroll="handleScroll"
+  >
     <div class="fs-virtual-waterfall-list" :style="listStyle">
       <template v-if="isShow">
         <div
@@ -12,7 +16,11 @@
         </div>
       </template>
       <div id="temporary-list" v-else>
-        <div v-for="{ item, style, imageHeight } in temporaryList" :key="item.id" :style="style">
+        <div
+          v-for="{ item, style, imageHeight } in temporaryList"
+          :key="item.id"
+          :style="style"
+        >
           <slot name="item" :item="item" :imageHeight="imageHeight"></slot>
         </div>
       </div>
@@ -21,9 +29,24 @@
 </template>
 
 <script setup lang="ts">
-import { type CSSProperties, computed, nextTick, onMounted, onUnmounted, reactive, ref, watch } from "vue";
-import type { IVirtualWaterFallProps, ICardItem, IBookColumnQueue, IBookRenderItem, IBookItemRect } from "./type";
-import { debounce, rafThrottle } from "./tool";
+import {
+  type CSSProperties,
+  computed,
+  nextTick,
+  onMounted,
+  onUnmounted,
+  reactive,
+  ref,
+  watch,
+} from 'vue';
+import type {
+  IVirtualWaterFallProps,
+  ICardItem,
+  IBookColumnQueue,
+  IBookRenderItem,
+  IBookItemRect,
+} from './type';
+import { debounce, rafThrottle } from './tool';
 
 const props = defineProps<IVirtualWaterFallProps>();
 
@@ -51,7 +74,9 @@ const scrollState = reactive({
 });
 
 const queueState = reactive({
-  queue: new Array(props.column).fill(0).map<IBookColumnQueue>(() => ({ list: [], height: 0 })),
+  queue: new Array(props.column)
+    .fill(0)
+    .map<IBookColumnQueue>(() => ({ list: [], height: 0 })),
   len: 0,
 });
 
@@ -61,13 +86,22 @@ const temporaryList = ref<IBookRenderItem[]>([]);
 
 const isShow = ref(false);
 
-const itemSizeInfo = ref(new Map<ICardItem["id"], IBookItemRect>());
+const itemSizeInfo = ref(new Map<ICardItem['id'], IBookItemRect>());
 
 const end = computed(() => scrollState.viewHeight + scrollState.start);
 
-const cardList = computed(() => queueState.queue.reduce<IBookRenderItem[]>((pre, { list }) => pre.concat(list), []));
+const cardList = computed(() =>
+  queueState.queue.reduce<IBookRenderItem[]>(
+    (pre, { list }) => pre.concat(list),
+    [],
+  ),
+);
 
-const renderList = computed(() => cardList.value.filter((i) => i.h + i.y > scrollState.start && i.y < end.value));
+const renderList = computed(() =>
+  cardList.value.filter(
+    (i) => i.h + i.y > scrollState.start && i.y < end.value,
+  ),
+);
 
 const computedHeight = computed(() => {
   let minIndex = 0,
@@ -89,18 +123,24 @@ const computedHeight = computed(() => {
   };
 });
 
-const listStyle = computed(() => ({ height: `${computedHeight.value.maxHeight}px` } as CSSProperties));
+const listStyle = computed(
+  () => ({ height: `${computedHeight.value.maxHeight}px` }) as CSSProperties,
+);
 
 watch(
   () => props.column,
   () => {
     handleResize();
-  }
+  },
 );
 
 const setItemSize = () => {
-  itemSizeInfo.value = dataState.list.reduce<Map<ICardItem["id"], IBookItemRect>>((pre, current) => {
-    const itemWidth = Math.floor((scrollState.viewWidth - (props.column - 1) * props.gap) / props.column);
+  itemSizeInfo.value = dataState.list.reduce<
+    Map<ICardItem['id'], IBookItemRect>
+  >((pre, current) => {
+    const itemWidth = Math.floor(
+      (scrollState.viewWidth - (props.column - 1) * props.gap) / props.column,
+    );
     const rect = itemSizeInfo.value.get(current.id);
     pre.set(current.id, {
       width: itemWidth,
@@ -131,7 +171,11 @@ const addInQueue = (size = props.enterSize) => {
   }
 };
 
-const generatorItem = (item: ICardItem, before: IBookRenderItem | null, index: number): IBookRenderItem => {
+const generatorItem = (
+  item: ICardItem,
+  before: IBookRenderItem | null,
+  index: number,
+): IBookRenderItem => {
   const rect = itemSizeInfo.value.get(item.id)!;
   const width = rect.width;
   const height = rect.height;
@@ -186,7 +230,9 @@ const handleResize = debounce(() => {
 
 const reComputedQueue = () => {
   setItemSize();
-  queueState.queue = new Array(props.column).fill(0).map<IBookColumnQueue>(() => ({ list: [], height: 0 }));
+  queueState.queue = new Array(props.column)
+    .fill(0)
+    .map<IBookColumnQueue>(() => ({ list: [], height: 0 }));
   queueState.len = 0;
   containerRef.value!.scrollTop = 0;
   mountTemporaryList(props.pageSize);
@@ -211,7 +257,7 @@ const mountTemporaryList = (size = props.enterSize) => {
   }
 
   nextTick(() => {
-    const list = document.querySelector("#temporary-list")!;
+    const list = document.querySelector('#temporary-list')!;
     [...list.children].forEach((item, index) => {
       const rect = item.getBoundingClientRect();
       temporaryList.value[index].h = rect.height;
