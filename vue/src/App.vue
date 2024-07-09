@@ -1,10 +1,10 @@
 <template>
   <div class="app">
-    <div class="container" ref="fContainerRef">
+    <div class="w-full h-full px-3" ref="fContainerRef">
       <FsBookVirtualWaterfall
         :request="getData"
         :gap="15"
-        :page-size="20"
+        :page-size="25"
         :column="column"
         :enter-size="column * 2"
       >
@@ -48,7 +48,11 @@ const fContainerObserver = new ResizeObserver((entries) => {
 });
 
 const changeColumn = (width: number) => {
-  if (width >= 960) {
+  if (width >= 2000) {
+    column.value = 7;
+  } else if (width >= 1200) {
+    column.value = 6;
+  } else if (width >= 960) {
     column.value = 5;
   } else if (width >= 690) {
     column.value = 4;
@@ -142,11 +146,5 @@ const handleCardClick = async (event: MouseEvent, item: ICardItem) => {
   display: flex;
   align-items: center;
   justify-content: center;
-
-  .container {
-    width: 1400px;
-    height: 600px;
-    border: 1px solid red;
-  }
 }
 </style>
