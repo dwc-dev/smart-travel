@@ -5,6 +5,6 @@ import com.ruoyi.travel.test.domain.TestScenic;
 import java.util.List;
 
 public interface TestScenicService {
-    List<TestScenic> getScenicList();
+    List<TestScenic> getScenicList(TestScenic testScenic);
     TestScenic selectScenicWithTicketsById(Integer id);
 }

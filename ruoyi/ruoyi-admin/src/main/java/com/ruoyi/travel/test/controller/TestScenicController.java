@@ -19,9 +19,9 @@ public class TestScenicController extends BaseController {
     private TestScenicService testScenicService;
 
     @GetMapping("/list")
-    public List<TestScenic> getScenicList() {
+    public List<TestScenic> getScenicList(TestScenic testScenic) {
         startPage();
-        return testScenicService.getScenicList();
+        return testScenicService.getScenicList(testScenic);
     }
 
     @GetMapping("/ticket")

@@ -15,8 +15,8 @@ public class TestScenicServiceImpl implements TestScenicService {
     private TestScenicMapper testScenicMapper;
 
     @Override
-    public List<TestScenic> getScenicList() {
-        return testScenicMapper.selectAllScenicWithTickets();
+    public List<TestScenic> getScenicList(TestScenic testScenic) {
+        return testScenicMapper.selectAllScenicWithTickets(testScenic);
     }
 
     @Override

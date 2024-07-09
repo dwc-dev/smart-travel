@@ -17,13 +17,22 @@
     <resultMap id="TestScenicResultMap" type="com.ruoyi.travel.test.domain.TestScenic">
         <id property="scenicId" column="scenic_id"/>
         <result property="name" column="name"/>
+        <result property="province" column="province"/>
+        <result property="city" column="city"/>
+        <result property="district" column="district"/>
         <collection property="tickets" ofType="com.ruoyi.travel.test.domain.TestTicket" column="scenic_id"
                     select="selectTicketsByScenicId"/>
     </resultMap>
 
     <select id="selectAllScenicWithTickets" resultMap="TestScenicResultMap">
-        SELECT scenic_id, name
+        SELECT scenic_id, name, province, city, district
         FROM travel_scenic
+        <where>
+            <if test="name != null and name != ''">and name like concat('%', #{name}, '%')</if>
+            <if test="province != null and province != ''">and province like concat('%', #{province}, '%')</if>
+            <if test="city != null and city != ''">and city like concat('%', #{city}, '%')</if>
+            <if test="district != null and district != ''">and district like concat('%', #{district}, '%')</if>
+        </where>
         ORDER BY scenic_id ASC
     </select>
 
