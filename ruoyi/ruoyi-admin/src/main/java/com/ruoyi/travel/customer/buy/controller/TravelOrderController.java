@@ -1,7 +1,7 @@
-package com.ruoyi.travel.order.controller;
+package com.ruoyi.travel.customer.buy.controller;
 
 import com.ruoyi.common.utils.SecurityUtils;
-import com.ruoyi.travel.order.service.TravelOrderService;
+import com.ruoyi.travel.customer.buy.service.TravelOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

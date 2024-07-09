@@ -1,9 +1,9 @@
-package com.ruoyi.travel.order.service;
+package com.ruoyi.travel.customer.buy.service;
 
-import com.ruoyi.travel.order.domain.TravelOrder;
-import com.ruoyi.travel.order.domain.OrderTravelTicket;
-import com.ruoyi.travel.order.mapper.TravelOrderMapper;
-import com.ruoyi.travel.order.mapper.OrderTicketMapper;
+import com.ruoyi.travel.customer.buy.mapper.OrderTicketMapper;
+import com.ruoyi.travel.customer.buy.mapper.TravelOrderMapper;
+import com.ruoyi.travel.customer.buy.domain.TravelOrder;
+import com.ruoyi.travel.customer.buy.domain.OrderTravelTicket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

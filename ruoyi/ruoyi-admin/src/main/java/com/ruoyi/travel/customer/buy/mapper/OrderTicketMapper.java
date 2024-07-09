@@ -1,6 +1,6 @@
-package com.ruoyi.travel.order.mapper;
+package com.ruoyi.travel.customer.buy.mapper;
 
-import com.ruoyi.travel.order.domain.OrderTravelTicket;
+import com.ruoyi.travel.customer.buy.domain.OrderTravelTicket;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

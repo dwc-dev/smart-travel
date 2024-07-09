@@ -1,4 +1,4 @@
-package com.ruoyi.travel.order.domain;
+package com.ruoyi.travel.customer.buy.domain;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
