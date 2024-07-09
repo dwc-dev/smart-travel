@@ -79,13 +79,9 @@ const handleBuyButtonClick = () => {
   .content {
     flex: 1;
     width: 0;
-    padding: 1rem;
-    position: relative;
-    overflow-y: scroll;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
 
     h1 {
       margin-top: 20px;
@@ -106,13 +102,19 @@ const handleBuyButtonClick = () => {
     }
 
     p {
+      flex: 1;
+      height: 0;
       text-indent: 2em;
+      overflow-y: scroll;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
 
     .buy-button {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
+      align-self: flex-end;
+      margin-top: 16px;
       padding: 7px 15px;
       display: flex;
       align-items: center;
