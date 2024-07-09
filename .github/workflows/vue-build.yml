@@ -19,7 +19,7 @@ jobs:
         bun-version: latest
 
     - name: Install Dependencies
-      run: bun install --frozen-lockfile
+      run: cd vue && bun install --frozen-lockfile
 
     - name: Build project
-      run: bun run build
+      run: cd vue && bun run build
