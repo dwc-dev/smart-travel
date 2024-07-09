@@ -122,6 +122,9 @@ export default {
       dialogVisible: false,
       selectedScenic: {},
       ticketInformation: [],
+
+      // 是否为第一次getList
+      isFirstLoad: true,
     };
   },
   created() {
@@ -136,8 +139,18 @@ export default {
         return getTicketInformation(); // 返回第二个 Promise
       }).then(ticketInformationResponse => {
         this.ticketInformation = ticketInformationResponse;
-        console.log(ticketInformationResponse);
         this.loading = false;
+
+        if (this.$route.query.scenicId && this.isFirstLoad) {
+          const scenic = this.ticketInformation.find(scenic => scenic.scenicId === parseInt(this.$route.query.scenicId));
+          if (scenic) {
+            this.openDialog(scenic);
+          } else {
+            this.$message.error('所选门票无效');
+          }
+        }
+
+        this.isFirstLoad = false;
       }).catch(error => {
         console.error("An error occurred:", error);
         this.loading = false;
