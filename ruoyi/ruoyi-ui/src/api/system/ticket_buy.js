@@ -17,6 +17,14 @@ export function getTicketInformation(query) {
   })
 }
 
+export function getTicketInformationItem(query) {
+  return request({
+    url: '/test/ticket_buy/ticket',
+    method: 'get',
+    params: query
+  })
+}
+
 export function buyTicket(data) {
   return request({
     url: '/test/ticket_buy/order',

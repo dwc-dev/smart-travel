@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import {listTicket_buy, getTicketInformation} from "@/api/system/ticket_buy";
+import {listTicket_buy, getTicketInformation, getTicketInformationItem} from "@/api/system/ticket_buy";
 import TicketDialog from "@/views/system/ticket_buy/TicketDialog.vue";
 
 export default {
@@ -122,13 +122,20 @@ export default {
       dialogVisible: false,
       selectedScenic: {},
       ticketInformation: [],
-
-      // 是否为第一次getList
-      isFirstLoad: true,
     };
   },
   created() {
     this.getList();
+
+    if (this.$route.query.scenicId) {
+      getTicketInformationItem({scenicId: this.$route.query.scenicId}).then(response => {
+        if (response) {
+          this.openDialog(response);
+        } else {
+          this.$message.error('所选门票无效');
+        }
+      });
+    }
   },
   methods: {
     /** 获取门票信息 */
@@ -140,17 +147,6 @@ export default {
       }).then(ticketInformationResponse => {
         this.ticketInformation = ticketInformationResponse;
         this.loading = false;
-
-        if (this.$route.query.scenicId && this.isFirstLoad) {
-          const scenic = this.ticketInformation.find(scenic => scenic.scenicId === parseInt(this.$route.query.scenicId));
-          if (scenic) {
-            this.openDialog(scenic);
-          } else {
-            this.$message.error('所选门票无效');
-          }
-        }
-
-        this.isFirstLoad = false;
       }).catch(error => {
         console.error("An error occurred:", error);
         this.loading = false;
