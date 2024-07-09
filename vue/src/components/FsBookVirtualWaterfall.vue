@@ -1,17 +1,18 @@
 <template>
   <div class="fs-virtual-waterfall-container" ref="containerRef" @scroll="handleScroll">
     <div class="fs-virtual-waterfall-list" :style="listStyle">
-      <div
-        v-if="isShow"
-        class="fs-virtual-waterfall-item"
-        v-for="{ item, style, imageHeight } in renderList"
-        :key="item.id"
-        :style="style"
-      >
-        <slot name="item" :item="item" :imageHeight="imageHeight"></slot>
-      </div>
+      <template v-if="isShow">
+        <div
+          class="fs-virtual-waterfall-item"
+          v-for="{ item, style, imageHeight } in renderList"
+          :key="item.id"
+          :style="style"
+        >
+          <slot name="item" :item="item" :imageHeight="imageHeight"></slot>
+        </div>
+      </template>
       <div id="temporary-list" v-else>
-        <div v-for="{ item, style, imageHeight } in temporaryList" :style="style">
+        <div v-for="{ item, style, imageHeight } in temporaryList" :key="item.id" :style="style">
           <slot name="item" :item="item" :imageHeight="imageHeight"></slot>
         </div>
       </div>
@@ -252,6 +253,10 @@ onUnmounted(() => {
     height: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
   &-list {
     position: relative;
