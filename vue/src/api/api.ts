@@ -1,12 +1,7 @@
 import type { ITravelScenicItem } from '@/components/type';
 
-let baseUrl;
-let baseUiUrl;
-
-if (process.env.NODE_ENV === 'development') {
-  baseUrl = new URL('http://localhost:8080/');
-  baseUiUrl = new URL('http://localhost/');
-}
+const baseUrl = new URL('http://localhost:8080/');
+const baseUiUrl = new URL('http://localhost/');
 
 const travelOpenapiURL = new URL('travel-openapi/', baseUrl);
 const userURL = new URL('user/', baseUiUrl);
@@ -25,6 +20,6 @@ export const fetchTravelScenicList = async () => {
   return (await response.json()) as ITravelScenicItem[];
 };
 
-export const navigateToBuyPage = (scenicId: number) => {
+export const navigateToBuyPage = (scenicId: string | number) => {
   window.open(new URL(`buy?scenicId=${scenicId}`, userURL));
 };
