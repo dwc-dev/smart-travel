@@ -1,0 +1,25 @@
+name: Deploy Vue App
+
+on:
+  push:
+    branches:
+      - main  # 在 push 到 main 分支时触发
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: latest
+
+    - name: Install Dependencies
+      run: cd vue && bun install --frozen-lockfile
+
+    - name: Build project
+      run: cd vue && bun run build
