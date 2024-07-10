@@ -1,6 +1,7 @@
 <template>
   <div>
     <el-table :data="orders" style="width: 100%">
+      <el-table-column prop="orderId" label="订单号" align="center"></el-table-column>
       <el-table-column prop="scenicName" label="景区名称" align="center"></el-table-column>
       <el-table-column prop="quantity" label="购票数量" align="center"></el-table-column>
       <el-table-column label="类型" align="center">

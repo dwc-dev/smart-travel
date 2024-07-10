@@ -48,8 +48,8 @@ export default {
         },
         {
           image: 'img5.jpg',
-          title: '练习时长两年半',
-          description: '鸡你太美~~baby~~'
+          title: '探索有故事价值的旅行时刻',
+          description: '感受中国的四季之美'
         }
       ]
     };

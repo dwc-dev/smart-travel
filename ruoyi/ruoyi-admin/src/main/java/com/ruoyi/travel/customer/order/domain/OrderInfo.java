@@ -4,11 +4,20 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class OrderInfo {
+    private int orderId;
     private String scenicName;
     private int quantity;
     private int type;
     private BigDecimal totalPrice;
     private Timestamp orderTime;
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
 
     public String getScenicName() {
         return scenicName;
