@@ -1,12 +1,3 @@
--- 用户表：存储所有类型用户的信息
-CREATE TABLE travel_user (
-    user_id INT AUTO_INCREMENT PRIMARY KEY COMMENT '用户ID',
-    username VARCHAR(50) NOT NULL COMMENT '用户名',
-    password VARCHAR(255) NOT NULL COMMENT '密码',
-    role ENUM('售票管理员', '内容管理员', '普通用户') NOT NULL COMMENT '用户角色',
-    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
-) COMMENT = '用户表，存储所有类型用户的信息';
-
 -- 景区表：存储景区信息
 CREATE TABLE travel_scenic (
     scenic_id INT AUTO_INCREMENT PRIMARY KEY COMMENT '景区ID',
