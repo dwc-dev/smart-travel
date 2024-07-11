@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.travel.mapper.TravelEventMapper">
+
+    <resultMap type="TravelEvent" id="TravelEventResult">
+        <result property="eventId"    column="event_id"    />
+        <result property="scenicId"    column="scenic_id"    />
+        <result property="name"    column="name"    />
+        <result property="startTime"    column="start_time"    />
+        <result property="endTime"    column="end_time"    />
+        <result property="description"    column="description"    />
+    </resultMap>
+
+    <sql id="selectTravelEventVo">
+        select event_id, scenic_id, name, start_time, end_time, description from travel_event
+    </sql>
+
+    <select id="selectTravelEventList" parameterType="TravelEvent" resultMap="TravelEventResult">
+        <include refid="selectTravelEventVo"/>
+        <where>
+            <if test="scenicId != null "> and scenic_id = #{scenicId}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="startTime != null "> and start_time = #{startTime}</if>
+            <if test="endTime != null "> and end_time = #{endTime}</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+        </where>
+    </select>
+
+    <select id="selectTravelEventByEventId" parameterType="Long" resultMap="TravelEventResult">
+        <include refid="selectTravelEventVo"/>
+        where event_id = #{eventId}
+    </select>
+
+    <insert id="insertTravelEvent" parameterType="TravelEvent" useGeneratedKeys="true" keyProperty="eventId">
+        insert into travel_event
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="scenicId != null">scenic_id,</if>
+            <if test="name != null and name != ''">name,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="description != null">description,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="scenicId != null">#{scenicId},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="description != null">#{description},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTravelEvent" parameterType="TravelEvent">
+        update travel_event
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="scenicId != null">scenic_id = #{scenicId},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="startTime != null">start_time = #{startTime},</if>
+            <if test="endTime != null">end_time = #{endTime},</if>
+            <if test="description != null">description = #{description},</if>
+        </trim>
+        where event_id = #{eventId}
+    </update>
+
+    <delete id="deleteTravelEventByEventId" parameterType="Long">
+        delete from travel_event where event_id = #{eventId}
+    </delete>
+
+    <delete id="deleteTravelEventByEventIds" parameterType="String">
+        delete from travel_event where event_id in
+        <foreach item="eventId" collection="array" open="(" separator="," close=")">
+            #{eventId}
+        </foreach>
+    </delete>
+</mapper>

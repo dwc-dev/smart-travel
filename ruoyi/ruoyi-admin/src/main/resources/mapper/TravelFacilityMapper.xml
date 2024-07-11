@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.travel.mapper.TravelFacilityMapper">
+
+    <resultMap type="TravelFacility" id="TravelFacilityResult">
+        <result property="facilityId" column="facility_id"/>
+        <result property="scenicId" column="scenic_id"/>
+        <result property="name" column="name"/>
+        <result property="type" column="type"/>
+        <result property="description" column="description"/>
+    </resultMap>
+
+    <sql id="selectTravelFacilityVo">
+        select facility_id, scenic_id, name, type, description
+        from travel_facility
+    </sql>
+
+    <select id="selectTravelFacilityList" parameterType="TravelFacility" resultMap="TravelFacilityResult">
+        <include refid="selectTravelFacilityVo"/>
+        <where>
+            <if test="scenicId != null ">and scenic_id = #{scenicId}</if>
+            <if test="name != null  and name != ''">and name like concat('%', #{name}, '%')</if>
+            <if test="type != null  and type != ''">and type = #{type}</if>
+            <if test="description != null  and description != ''">and description = #{description}</if>
+        </where>
+    </select>
+
+    <select id="selectTravelFacilityByFacilityId" parameterType="Long" resultMap="TravelFacilityResult">
+        <include refid="selectTravelFacilityVo"/>
+        where facility_id = #{facilityId}
+    </select>
+
+    <insert id="insertTravelFacility" parameterType="TravelFacility" useGeneratedKeys="true" keyProperty="facilityId">
+        insert into travel_facility
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="scenicId != null">scenic_id,</if>
+            <if test="name != null and name != ''">name,</if>
+            <if test="type != null and type != ''">type,</if>
+            <if test="description != null">description,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="scenicId != null">#{scenicId},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="type != null and type != ''">#{type},</if>
+            <if test="description != null">#{description},</if>
+        </trim>
+    </insert>
+
+    <update id="updateTravelFacility" parameterType="TravelFacility">
+        update travel_facility
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="scenicId != null">scenic_id = #{scenicId},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="type != null and type != ''">type = #{type},</if>
+            <if test="description != null">description = #{description},</if>
+        </trim>
+        where facility_id = #{facilityId}
+    </update>
+
+    <delete id="deleteTravelFacilityByFacilityId" parameterType="Long">
+        delete
+        from travel_facility
+        where facility_id = #{facilityId}
+    </delete>
+
+    <delete id="deleteTravelFacilityByFacilityIds" parameterType="String">
+        delete from travel_facility where facility_id in
+        <foreach item="facilityId" collection="array" open="(" separator="," close=")">
+            #{facilityId}
+        </foreach>
+    </delete>
+</mapper>
