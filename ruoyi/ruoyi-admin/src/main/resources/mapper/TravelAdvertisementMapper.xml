@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.travel.mapper.TravelAdvertisementMapper">
+
+    <resultMap type="TravelAdvertisement" id="TravelAdvertisementResult">
+        <result property="adId"    column="ad_id"    />
+        <result property="scenicId"    column="scenic_id"    />
+        <result property="title"    column="title"    />
+        <result property="content"    column="content"    />
+        <result property="startTime"    column="start_time"    />
+        <result property="endTime"    column="end_time"    />
+    </resultMap>
+
+    <sql id="selectTravelAdvertisementVo">
+        select ad_id, scenic_id, title, content, start_time, end_time from travel_advertisement
+    </sql>
+
+    <select id="selectTravelAdvertisementList" parameterType="TravelAdvertisement" resultMap="TravelAdvertisementResult">
+        <include refid="selectTravelAdvertisementVo"/>
+        <where>
+            <if test="scenicId != null "> and scenic_id = #{scenicId}</if>
+            <if test="title != null  and title != ''"> and title = #{title}</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="startTime != null "> and start_time = #{startTime}</if>
+            <if test="endTime != null "> and end_time = #{endTime}</if>
+        </where>
+    </select>
+
+    <select id="selectTravelAdvertisementByAdId" parameterType="Long" resultMap="TravelAdvertisementResult">
+        <include refid="selectTravelAdvertisementVo"/>
+        where ad_id = #{adId}
+    </select>
+
+    <insert id="insertTravelAdvertisement" parameterType="TravelAdvertisement" useGeneratedKeys="true" keyProperty="adId">
+        insert into travel_advertisement
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="scenicId != null">scenic_id,</if>
+            <if test="title != null and title != ''">title,</if>
+            <if test="content != null">content,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="endTime != null">end_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="scenicId != null">#{scenicId},</if>
+            <if test="title != null and title != ''">#{title},</if>
+            <if test="content != null">#{content},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="endTime != null">#{endTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTravelAdvertisement" parameterType="TravelAdvertisement">
+        update travel_advertisement
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="scenicId != null">scenic_id = #{scenicId},</if>
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="startTime != null">start_time = #{startTime},</if>
+            <if test="endTime != null">end_time = #{endTime},</if>
+        </trim>
+        where ad_id = #{adId}
+    </update>
+
+    <delete id="deleteTravelAdvertisementByAdId" parameterType="Long">
+        delete from travel_advertisement where ad_id = #{adId}
+    </delete>
+
+    <delete id="deleteTravelAdvertisementByAdIds" parameterType="String">
+        delete from travel_advertisement where ad_id in
+        <foreach item="adId" collection="array" open="(" separator="," close=")">
+            #{adId}
+        </foreach>
+    </delete>
+</mapper>
