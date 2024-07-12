@@ -84,9 +84,9 @@ CREATE TABLE travel_advertisement
 -- 交通信息表
 CREATE TABLE travel_transport
 (
-    transport_id      INT AUTO_INCREMENT PRIMARY KEY,
-    scenic_id         INT NOT NULL,
-    transport_type    VARCHAR(50),
-    route_description TEXT,
+    transport_id      INT AUTO_INCREMENT PRIMARY KEY COMMENT '交通ID',
+    scenic_id         INT NOT NULL COMMENT '景区ID',
+    transport_type    VARCHAR(50) NOT NULL COMMENT '交通类型',
+    route_description TEXT COMMENT '交通信息描述',
     FOREIGN KEY (scenic_id) REFERENCES travel_scenic (scenic_id)
-) COMMENT '交通信息表';
+) COMMENT = '交通信息表';
