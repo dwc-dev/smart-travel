@@ -4,6 +4,7 @@ import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.travel.test.domain.TestScenic;
 import com.ruoyi.travel.test.service.TestScenicService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +23,7 @@ public class TestScenicController extends BaseController {
     @Autowired
     private TestScenicService testScenicService;
 
+    @PreAuthorize("@ss.hasPermi('system:ticket_buy:list')")
     @GetMapping("/list")
     public List<TestScenic> getScenicList(TestScenic testScenic) {
         if (ServletUtils.getParameter(PAGE_SIZE) != null && ServletUtils.getParameter(PAGE_NUM) != null)
@@ -29,6 +31,7 @@ public class TestScenicController extends BaseController {
         return testScenicService.getScenicList(testScenic);
     }
 
+    @PreAuthorize("@ss.hasPermi('system:ticket_buy:list')")
     @GetMapping("/ticket")
     public TestScenic selectScenicWithTicketsById(@RequestParam("scenicId") Integer scenicId) {
         return testScenicService.selectScenicWithTicketsById(scenicId);
