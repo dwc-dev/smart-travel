@@ -7,7 +7,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
 
 /**
  * 景区交通信息，存储景区周边交通信息对象 travel_transport
- * 
+ *
  * @author ruoyi
  * @date 2024-07-12
  */
@@ -24,45 +24,45 @@ public class TravelTransport extends BaseEntity
 
     /** 交通类型 */
     @Excel(name = "交通类型")
-    private String transportType;
+    private Long transportType;
 
     /** 交通信息描述 */
     @Excel(name = "交通信息描述")
     private String routeDescription;
 
-    public void setTransportId(Long transportId) 
+    public void setTransportId(Long transportId)
     {
         this.transportId = transportId;
     }
 
-    public Long getTransportId() 
+    public Long getTransportId()
     {
         return transportId;
     }
-    public void setScenicId(Long scenicId) 
+    public void setScenicId(Long scenicId)
     {
         this.scenicId = scenicId;
     }
 
-    public Long getScenicId() 
+    public Long getScenicId()
     {
         return scenicId;
     }
-    public void setTransportType(String transportType) 
+    public void setTransportType(Long transportType)
     {
         this.transportType = transportType;
     }
 
-    public String getTransportType() 
+    public Long getTransportType()
     {
         return transportType;
     }
-    public void setRouteDescription(String routeDescription) 
+    public void setRouteDescription(String routeDescription)
     {
         this.routeDescription = routeDescription;
     }
 
-    public String getRouteDescription() 
+    public String getRouteDescription()
     {
         return routeDescription;
     }

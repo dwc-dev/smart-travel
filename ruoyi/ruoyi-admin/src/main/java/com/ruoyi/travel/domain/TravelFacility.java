@@ -28,7 +28,7 @@ public class TravelFacility extends BaseEntity
 
     /** 设施类型 */
     @Excel(name = "设施类型")
-    private String type;
+    private Long type;
 
     /** 设施描述 */
     @Excel(name = "设施描述")
@@ -61,12 +61,12 @@ public class TravelFacility extends BaseEntity
     {
         return name;
     }
-    public void setType(String type)
+    public void setType(Long type)
     {
         this.type = type;
     }
 
-    public String getType()
+    public Long getType()
     {
         return type;
     }
