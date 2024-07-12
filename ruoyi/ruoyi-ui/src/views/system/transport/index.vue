@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="${comment}" prop="scenicId">
+      <el-form-item label="景区ID" prop="scenicId">
         <el-input
           v-model="queryParams.scenicId"
-          placeholder="请输入${comment}"
+          placeholder="请输入景区ID"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -63,10 +63,10 @@
 
     <el-table v-loading="loading" :data="transportList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="${comment}" align="center" prop="transportId" />
-      <el-table-column label="${comment}" align="center" prop="scenicId" />
-      <el-table-column label="${comment}" align="center" prop="transportType" />
-      <el-table-column label="${comment}" align="center" prop="routeDescription" />
+      <el-table-column label="交通ID" align="center" prop="transportId" />
+      <el-table-column label="景区ID" align="center" prop="scenicId" />
+      <el-table-column label="交通类型" align="center" prop="transportType" />
+      <el-table-column label="交通信息描述" align="center" prop="routeDescription" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -95,13 +95,13 @@
       @pagination="getList"
     />
 
-    <!-- 添加或修改景区交通信息，存储景区周边交通对话框 -->
+    <!-- 添加或修改景区交通信息，存储景区周边交通信息对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="${comment}" prop="scenicId">
-          <el-input v-model="form.scenicId" placeholder="请输入${comment}" />
+        <el-form-item label="景区ID" prop="scenicId">
+          <el-input v-model="form.scenicId" placeholder="请输入景区ID" />
         </el-form-item>
-        <el-form-item label="${comment}" prop="routeDescription">
+        <el-form-item label="交通信息描述" prop="routeDescription">
           <el-input v-model="form.routeDescription" type="textarea" placeholder="请输入内容" />
         </el-form-item>
       </el-form>
@@ -132,7 +132,7 @@ export default {
       showSearch: true,
       // 总条数
       total: 0,
-      // 景区交通信息，存储景区周边交通表格数据
+      // 景区交通信息，存储景区周边交通信息表格数据
       transportList: [],
       // 弹出层标题
       title: "",
@@ -151,8 +151,14 @@ export default {
       // 表单校验
       rules: {
         scenicId: [
-          { required: true, message: "$comment不能为空", trigger: "blur" }
+          { required: true, message: "景区ID不能为空", trigger: "blur" }
         ],
+        transportType: [
+          { required: true, message: "交通类型不能为空", trigger: "change" }
+        ],
+        routeDescription: [
+          { required: true, message: "交通信息描述不能为空", trigger: "blur" }
+        ]
       }
     };
   },
@@ -160,7 +166,7 @@ export default {
     this.getList();
   },
   methods: {
-    /** 查询景区交通信息，存储景区周边交通列表 */
+    /** 查询景区交通信息，存储景区周边交通信息列表 */
     getList() {
       this.loading = true;
       listTransport(this.queryParams).then(response => {
@@ -204,7 +210,7 @@ export default {
     handleAdd() {
       this.reset();
       this.open = true;
-      this.title = "添加景区交通信息，存储景区周边交通";
+      this.title = "添加景区交通信息，存储景区周边交通信息";
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
@@ -213,7 +219,7 @@ export default {
       getTransport(transportId).then(response => {
         this.form = response.data;
         this.open = true;
-        this.title = "修改景区交通信息，存储景区周边交通";
+        this.title = "修改景区交通信息，存储景区周边交通信息";
       });
     },
     /** 提交按钮 */
@@ -239,7 +245,7 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const transportIds = row.transportId || this.ids;
-      this.$modal.confirm('是否确认删除景区交通信息，存储景区周边交通编号为"' + transportIds + '"的数据项？').then(function() {
+      this.$modal.confirm('是否确认删除景区交通信息，存储景区周边交通信息编号为"' + transportIds + '"的数据项？').then(function() {
         return delTransport(transportIds);
       }).then(() => {
         this.getList();

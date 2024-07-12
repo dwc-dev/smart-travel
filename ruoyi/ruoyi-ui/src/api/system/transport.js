@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-// 查询景区交通信息，存储景区周边交通列表
+// 查询景区交通信息，存储景区周边交通信息列表
 export function listTransport(query) {
   return request({
     url: '/system/transport/list',
@@ -9,7 +9,7 @@ export function listTransport(query) {
   })
 }
 
-// 查询景区交通信息，存储景区周边交通详细
+// 查询景区交通信息，存储景区周边交通信息详细
 export function getTransport(transportId) {
   return request({
     url: '/system/transport/' + transportId,
@@ -17,7 +17,7 @@ export function getTransport(transportId) {
   })
 }
 
-// 新增景区交通信息，存储景区周边交通
+// 新增景区交通信息，存储景区周边交通信息
 export function addTransport(data) {
   return request({
     url: '/system/transport',
@@ -26,7 +26,7 @@ export function addTransport(data) {
   })
 }
 
-// 修改景区交通信息，存储景区周边交通
+// 修改景区交通信息，存储景区周边交通信息
 export function updateTransport(data) {
   return request({
     url: '/system/transport',
@@ -35,7 +35,7 @@ export function updateTransport(data) {
   })
 }
 
-// 删除景区交通信息，存储景区周边交通
+// 删除景区交通信息，存储景区周边交通信息
 export function delTransport(transportId) {
   return request({
     url: '/system/transport/' + transportId,

@@ -22,9 +22,9 @@ import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.page.TableDataInfo;
 
 /**
- * 景区交通信息，存储景区周边交通Controller
- *
- * @author ruoyi
+ * 景区交通信息，存储景区周边交通信息Controller
+ * 
+ * @author sj
  * @date 2024-07-12
  */
 @RestController
@@ -35,7 +35,7 @@ public class TravelTransportController extends BaseController
     private ITravelTransportService travelTransportService;
 
     /**
-     * 查询景区交通信息，存储景区周边交通列表
+     * 查询景区交通信息，存储景区周边交通信息列表
      */
     @PreAuthorize("@ss.hasPermi('system:transport:list')")
     @GetMapping("/list")
@@ -47,20 +47,20 @@ public class TravelTransportController extends BaseController
     }
 
     /**
-     * 导出景区交通信息，存储景区周边交通列表
+     * 导出景区交通信息，存储景区周边交通信息列表
      */
     @PreAuthorize("@ss.hasPermi('system:transport:export')")
-    @Log(title = "景区交通信息，存储景区周边交通", businessType = BusinessType.EXPORT)
+    @Log(title = "景区交通信息，存储景区周边交通信息", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, TravelTransport travelTransport)
     {
         List<TravelTransport> list = travelTransportService.selectTravelTransportList(travelTransport);
         ExcelUtil<TravelTransport> util = new ExcelUtil<TravelTransport>(TravelTransport.class);
-        util.exportExcel(response, list, "景区交通信息，存储景区周边交通数据");
+        util.exportExcel(response, list, "景区交通信息，存储景区周边交通信息数据");
     }
 
     /**
-     * 获取景区交通信息，存储景区周边交通详细信息
+     * 获取景区交通信息，存储景区周边交通信息详细信息
      */
     @PreAuthorize("@ss.hasPermi('system:transport:query')")
     @GetMapping(value = "/{transportId}")
@@ -70,10 +70,10 @@ public class TravelTransportController extends BaseController
     }
 
     /**
-     * 新增景区交通信息，存储景区周边交通
+     * 新增景区交通信息，存储景区周边交通信息
      */
     @PreAuthorize("@ss.hasPermi('system:transport:add')")
-    @Log(title = "景区交通信息，存储景区周边交通", businessType = BusinessType.INSERT)
+    @Log(title = "景区交通信息，存储景区周边交通信息", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody TravelTransport travelTransport)
     {
@@ -81,10 +81,10 @@ public class TravelTransportController extends BaseController
     }
 
     /**
-     * 修改景区交通信息，存储景区周边交通
+     * 修改景区交通信息，存储景区周边交通信息
      */
     @PreAuthorize("@ss.hasPermi('system:transport:edit')")
-    @Log(title = "景区交通信息，存储景区周边交通", businessType = BusinessType.UPDATE)
+    @Log(title = "景区交通信息，存储景区周边交通信息", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody TravelTransport travelTransport)
     {
@@ -92,10 +92,10 @@ public class TravelTransportController extends BaseController
     }
 
     /**
-     * 删除景区交通信息，存储景区周边交通
+     * 删除景区交通信息，存储景区周边交通信息
      */
     @PreAuthorize("@ss.hasPermi('system:transport:remove')")
-    @Log(title = "景区交通信息，存储景区周边交通", businessType = BusinessType.DELETE)
+    @Log(title = "景区交通信息，存储景区周边交通信息", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{transportIds}")
     public AjaxResult remove(@PathVariable Long[] transportIds)
     {

@@ -1,31 +1,29 @@
 package com.ruoyi.travel.service.impl;
 
 import java.util.List;
-
-import com.ruoyi.travel.domain.TravelTransport;
-import com.ruoyi.travel.mapper.TravelTransportMapper;
-import com.ruoyi.travel.service.ITravelTransportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.ruoyi.travel.mapper.TravelTransportMapper;
+import com.ruoyi.travel.domain.TravelTransport;
+import com.ruoyi.travel.service.ITravelTransportService;
 
 /**
- * 景区交通信息，存储景区周边交通Service业务层处理
- *
- * @author ruoyi
+ * 景区交通信息，存储景区周边交通信息Service业务层处理
+ * 
+ * @author sj
  * @date 2024-07-12
  */
 @Service
-public class TravelTransportServiceImpl implements ITravelTransportService
+public class TravelTransportServiceImpl implements ITravelTransportService 
 {
     @Autowired
     private TravelTransportMapper travelTransportMapper;
 
     /**
-     * 查询景区交通信息，存储景区周边交通
-     *
-     * @param transportId 景区交通信息，存储景区周边交通主键
-     * @return 景区交通信息，存储景区周边交通
+     * 查询景区交通信息，存储景区周边交通信息
+     * 
+     * @param transportId 景区交通信息，存储景区周边交通信息主键
+     * @return 景区交通信息，存储景区周边交通信息
      */
     @Override
     public TravelTransport selectTravelTransportByTransportId(Long transportId)
@@ -34,10 +32,10 @@ public class TravelTransportServiceImpl implements ITravelTransportService
     }
 
     /**
-     * 查询景区交通信息，存储景区周边交通列表
-     *
-     * @param travelTransport 景区交通信息，存储景区周边交通
-     * @return 景区交通信息，存储景区周边交通
+     * 查询景区交通信息，存储景区周边交通信息列表
+     * 
+     * @param travelTransport 景区交通信息，存储景区周边交通信息
+     * @return 景区交通信息，存储景区周边交通信息
      */
     @Override
     public List<TravelTransport> selectTravelTransportList(TravelTransport travelTransport)
@@ -46,9 +44,9 @@ public class TravelTransportServiceImpl implements ITravelTransportService
     }
 
     /**
-     * 新增景区交通信息，存储景区周边交通
-     *
-     * @param travelTransport 景区交通信息，存储景区周边交通
+     * 新增景区交通信息，存储景区周边交通信息
+     * 
+     * @param travelTransport 景区交通信息，存储景区周边交通信息
      * @return 结果
      */
     @Override
@@ -58,9 +56,9 @@ public class TravelTransportServiceImpl implements ITravelTransportService
     }
 
     /**
-     * 修改景区交通信息，存储景区周边交通
-     *
-     * @param travelTransport 景区交通信息，存储景区周边交通
+     * 修改景区交通信息，存储景区周边交通信息
+     * 
+     * @param travelTransport 景区交通信息，存储景区周边交通信息
      * @return 结果
      */
     @Override
@@ -70,9 +68,9 @@ public class TravelTransportServiceImpl implements ITravelTransportService
     }
 
     /**
-     * 批量删除景区交通信息，存储景区周边交通
-     *
-     * @param transportIds 需要删除的景区交通信息，存储景区周边交通主键
+     * 批量删除景区交通信息，存储景区周边交通信息
+     * 
+     * @param transportIds 需要删除的景区交通信息，存储景区周边交通信息主键
      * @return 结果
      */
     @Override
@@ -82,9 +80,9 @@ public class TravelTransportServiceImpl implements ITravelTransportService
     }
 
     /**
-     * 删除景区交通信息，存储景区周边交通信息
-     *
-     * @param transportId 景区交通信息，存储景区周边交通主键
+     * 删除景区交通信息，存储景区周边交通信息信息
+     * 
+     * @param transportId 景区交通信息，存储景区周边交通信息主键
      * @return 结果
      */
     @Override

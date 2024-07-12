@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.travel.mapper.TravelTransportMapper">
-
+    
     <resultMap type="TravelTransport" id="TravelTransportResult">
         <result property="transportId"    column="transport_id"    />
         <result property="scenicId"    column="scenic_id"    />
@@ -17,13 +17,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectTravelTransportList" parameterType="TravelTransport" resultMap="TravelTransportResult">
         <include refid="selectTravelTransportVo"/>
-        <where>
+        <where>  
             <if test="scenicId != null "> and scenic_id = #{scenicId}</if>
             <if test="transportType != null  and transportType != ''"> and transport_type = #{transportType}</if>
             <if test="routeDescription != null  and routeDescription != ''"> and route_description = #{routeDescription}</if>
         </where>
     </select>
-
+    
     <select id="selectTravelTransportByTransportId" parameterType="Long" resultMap="TravelTransportResult">
         <include refid="selectTravelTransportVo"/>
         where transport_id = #{transportId}
@@ -33,13 +33,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into travel_transport
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="scenicId != null">scenic_id,</if>
-            <if test="transportType != null">transport_type,</if>
-            <if test="routeDescription != null">route_description,</if>
+            <if test="transportType != null and transportType != ''">transport_type,</if>
+            <if test="routeDescription != null and routeDescription != ''">route_description,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="scenicId != null">#{scenicId},</if>
-            <if test="transportType != null">#{transportType},</if>
-            <if test="routeDescription != null">#{routeDescription},</if>
+            <if test="transportType != null and transportType != ''">#{transportType},</if>
+            <if test="routeDescription != null and routeDescription != ''">#{routeDescription},</if>
          </trim>
     </insert>
 
@@ -47,8 +47,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update travel_transport
         <trim prefix="SET" suffixOverrides=",">
             <if test="scenicId != null">scenic_id = #{scenicId},</if>
-            <if test="transportType != null">transport_type = #{transportType},</if>
-            <if test="routeDescription != null">route_description = #{routeDescription},</if>
+            <if test="transportType != null and transportType != ''">transport_type = #{transportType},</if>
+            <if test="routeDescription != null and routeDescription != ''">route_description = #{routeDescription},</if>
         </trim>
         where transport_id = #{transportId}
     </update>
@@ -58,7 +58,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteTravelTransportByTransportIds" parameterType="String">
-        delete from travel_transport where transport_id in
+        delete from travel_transport where transport_id in 
         <foreach item="transportId" collection="array" open="(" separator="," close=")">
             #{transportId}
         </foreach>
