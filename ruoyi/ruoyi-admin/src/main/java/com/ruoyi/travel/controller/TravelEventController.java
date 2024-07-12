@@ -32,8 +32,15 @@ import com.ruoyi.common.core.page.TableDataInfo;
 @RequestMapping("/system/event")
 public class TravelEventController extends BaseController
 {
+    private String prefix = "system/user";
     @Autowired
     private ITravelEventService travelEventService;
+
+    @PreAuthorize("@ss.hasPermi('system:event:view')")
+    @GetMapping()
+    public String user() {
+        return prefix + "/user";
+    }
 
     /**
      * 查询景区活动，存储景区活动列表

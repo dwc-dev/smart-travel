@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.travel.mapper.TravelTransportMapper">
+
+    <resultMap type="TravelTransport" id="TravelTransportResult">
+        <result property="transportId"    column="transport_id"    />
+        <result property="scenicId"    column="scenic_id"    />
+        <result property="transportType"    column="transport_type"    />
+        <result property="routeDescription"    column="route_description"    />
+    </resultMap>
+
+    <sql id="selectTravelTransportVo">
+        select transport_id, scenic_id, transport_type, route_description from travel_transport
+    </sql>
+
+    <select id="selectTravelTransportList" parameterType="TravelTransport" resultMap="TravelTransportResult">
+        <include refid="selectTravelTransportVo"/>
+        <where>
+            <if test="scenicId != null "> and scenic_id = #{scenicId}</if>
+            <if test="transportType != null  and transportType != ''"> and transport_type = #{transportType}</if>
+            <if test="routeDescription != null  and routeDescription != ''"> and route_description = #{routeDescription}</if>
+        </where>
+    </select>
+
+    <select id="selectTravelTransportByTransportId" parameterType="Long" resultMap="TravelTransportResult">
+        <include refid="selectTravelTransportVo"/>
+        where transport_id = #{transportId}
+    </select>
+
+    <insert id="insertTravelTransport" parameterType="TravelTransport" useGeneratedKeys="true" keyProperty="transportId">
+        insert into travel_transport
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="scenicId != null">scenic_id,</if>
+            <if test="transportType != null">transport_type,</if>
+            <if test="routeDescription != null">route_description,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="scenicId != null">#{scenicId},</if>
+            <if test="transportType != null">#{transportType},</if>
+            <if test="routeDescription != null">#{routeDescription},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTravelTransport" parameterType="TravelTransport">
+        update travel_transport
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="scenicId != null">scenic_id = #{scenicId},</if>
+            <if test="transportType != null">transport_type = #{transportType},</if>
+            <if test="routeDescription != null">route_description = #{routeDescription},</if>
+        </trim>
+        where transport_id = #{transportId}
+    </update>
+
+    <delete id="deleteTravelTransportByTransportId" parameterType="Long">
+        delete from travel_transport where transport_id = #{transportId}
+    </delete>
+
+    <delete id="deleteTravelTransportByTransportIds" parameterType="String">
+        delete from travel_transport where transport_id in
+        <foreach item="transportId" collection="array" open="(" separator="," close=")">
+            #{transportId}
+        </foreach>
+    </delete>
+</mapper>

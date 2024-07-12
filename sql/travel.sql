@@ -80,3 +80,13 @@ CREATE TABLE travel_advertisement
     end_time   DATETIME     NOT NULL COMMENT '结束时间',
     FOREIGN KEY (scenic_id) REFERENCES travel_scenic (scenic_id)
 ) COMMENT '景区广告表';
+
+-- 交通信息表
+CREATE TABLE travel_transport
+(
+    transport_id      INT AUTO_INCREMENT PRIMARY KEY,
+    scenic_id         INT NOT NULL,
+    transport_type    VARCHAR(50),
+    route_description TEXT,
+    FOREIGN KEY (scenic_id) REFERENCES travel_scenic (scenic_id)
+) COMMENT '交通信息表';
