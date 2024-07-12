@@ -3,6 +3,7 @@ package com.ruoyi.travel.customer.buy.controller;
 import com.ruoyi.common.utils.SecurityUtils;
 import com.ruoyi.travel.customer.buy.service.TravelOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ public class TravelOrderController {
     @Autowired
     private TravelOrderService travelOrderService;
 
+    @PreAuthorize("@ss.hasPermi('system:ticket_buy:list')")
     @PostMapping("/order")
     public String createOrder(@RequestBody OrderRequest request) {
         Long userId = SecurityUtils.getLoginUser().getUser().getUserId();
