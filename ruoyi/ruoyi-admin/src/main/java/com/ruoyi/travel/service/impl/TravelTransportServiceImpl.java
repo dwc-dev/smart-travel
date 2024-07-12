@@ -10,7 +10,7 @@ import com.ruoyi.travel.service.ITravelTransportService;
 /**
  * 景区交通信息，存储景区周边交通信息Service业务层处理
  * 
- * @author sj
+ * @author ruoyi
  * @date 2024-07-12
  */
 @Service

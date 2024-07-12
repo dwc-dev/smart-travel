@@ -9,6 +9,16 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
+      <el-form-item label="交通类型" prop="transportType">
+        <el-select v-model="queryParams.transportType" placeholder="请选择交通类型" clearable>
+          <el-option
+            v-for="dict in dict.type.travel_transport_type"
+            :key="dict.value"
+            :label="dict.label"
+            :value="dict.value"
+          />
+        </el-select>
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -65,7 +75,11 @@
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="交通ID" align="center" prop="transportId" />
       <el-table-column label="景区ID" align="center" prop="scenicId" />
-      <el-table-column label="交通类型" align="center" prop="transportType" />
+      <el-table-column label="交通类型" align="center" prop="transportType">
+        <template slot-scope="scope">
+          <dict-tag :options="dict.type.travel_transport_type" :value="scope.row.transportType"/>
+        </template>
+      </el-table-column>
       <el-table-column label="交通信息描述" align="center" prop="routeDescription" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
@@ -101,6 +115,16 @@
         <el-form-item label="景区ID" prop="scenicId">
           <el-input v-model="form.scenicId" placeholder="请输入景区ID" />
         </el-form-item>
+        <el-form-item label="交通类型" prop="transportType">
+          <el-select v-model="form.transportType" placeholder="请选择交通类型">
+            <el-option
+              v-for="dict in dict.type.travel_transport_type"
+              :key="dict.value"
+              :label="dict.label"
+              :value="dict.value"
+            ></el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item label="交通信息描述" prop="routeDescription">
           <el-input v-model="form.routeDescription" type="textarea" placeholder="请输入内容" />
         </el-form-item>
@@ -118,6 +142,7 @@ import { listTransport, getTransport, delTransport, addTransport, updateTranspor
 
 export default {
   name: "Transport",
+  dicts: ['travel_transport_type'],
   data() {
     return {
       // 遮罩层
@@ -156,9 +181,6 @@ export default {
         transportType: [
           { required: true, message: "交通类型不能为空", trigger: "change" }
         ],
-        routeDescription: [
-          { required: true, message: "交通信息描述不能为空", trigger: "blur" }
-        ]
       }
     };
   },

@@ -8,7 +8,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
 /**
  * 景区交通信息，存储景区周边交通信息对象 travel_transport
  * 
- * @author sj
+ * @author ruoyi
  * @date 2024-07-12
  */
 public class TravelTransport extends BaseEntity

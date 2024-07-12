@@ -24,7 +24,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
 /**
  * 景区交通信息，存储景区周边交通信息Controller
  * 
- * @author sj
+ * @author ruoyi
  * @date 2024-07-12
  */
 @RestController
