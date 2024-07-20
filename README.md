@@ -1,5 +1,12 @@
-# smart-travel
+<head>
+  <base target="_blank">
+</head>
+
+## smart-travel
+
 基于[若依](https://doc.ruoyi.vip)的智慧文旅平台
+
+## 演示地址
 
 景区浏览：https://smart-travel.sdju.dev
 
