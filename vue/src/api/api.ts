@@ -1,8 +1,8 @@
-import type {ITravelScenicItem} from '@/components/type';
+import type { ITravelScenicItem } from '@/components/type';
 
 const baseUrl = new URL('http://localhost:8080/');
 const baseUiUrl = new URL('http://localhost/');
-baseUiUrl.hash = '#/'
+baseUiUrl.hash = '#/';
 
 const travelOpenapiURL = new URL('travel-openapi/', baseUrl);
 
