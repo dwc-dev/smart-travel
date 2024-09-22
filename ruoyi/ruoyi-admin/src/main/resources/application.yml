@@ -7,7 +7,7 @@ ruoyi:
   # 版权年份
   copyrightYear: 2024
   # 文件路径 示例（ Windows配置D:/ruoyi/uploadPath，Linux配置 /home/ruoyi/uploadPath）
-  profile: D:/ruoyi/uploadPath
+  profile: /data/uploadPath
   # 获取ip地址开关
   addressEnabled: false
   # 验证码类型 math 数字计算 char 字符验证
@@ -68,13 +68,13 @@ spring:
   # redis 配置
   redis:
     # 地址
-    host: localhost
+    host: ${REDIS_HOST}
     # 端口，默认为6379
-    port: 6379
+    port: ${REDIS_PORT}
     # 数据库索引
-    database: 0
+    database: ${REDIS_DATABASE}
     # 密码
-    password: your_password
+    password: ${REDIS_PASSWORD}
     # 连接超时时间
     timeout: 10s
     lettuce:
@@ -93,7 +93,7 @@ token:
   # 令牌自定义标识
   header: Authorization
   # 令牌密钥
-  secret: abcdefghijklmnopqrstuvwxyz
+  secret: ${TOKEN_PASSWORD}
   # 令牌有效期（默认30分钟）
   expireTime: 30
 
@@ -117,7 +117,7 @@ swagger:
   # 是否开启swagger
   enabled: true
   # 请求前缀
-  pathMapping: /dev-api
+  pathMapping: /api
 
 # 防止XSS攻击
 xss:
