@@ -1,7 +1,7 @@
 import type { ITravelScenicItem } from '@/components/type';
 
 // const baseUrl = new URL('http://localhost:8080/');
-const baseUrl = new URL(window.location.origin + '/api');
+const baseUrl = new URL(window.location.origin + '/api/');
 // const baseUiUrl = new URL('http://localhost/');
 const baseUiUrl = new URL(window.location.origin + '/ruoyi');
 baseUiUrl.hash = '#/';
